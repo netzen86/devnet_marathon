@@ -1,0 +1,266 @@
+
+Building configuration...
+
+Current configuration : 5797 bytes
+!
+! Last configuration change at 18:59:39 GMT Mon Apr 27 2020 by root
+!
+version 16.9
+service timestamps debug datetime msec
+service timestamps log datetime msec
+platform qfp utilization monitor load 80
+no platform punt-keepalive disable-kernel-core
+platform console virtual
+!
+hostname csr1000v
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no logging console
+enable secret 5 $1$gkJ1$EofN9ajW9k18SoRTgkhYr/
+!
+no aaa new-model
+clock timezone GMT 0 0
+!
+!
+!
+!
+!
+!
+!
+ip name-server 8.8.8.8
+ip domain name abc.inc
+!
+!
+!
+login on-success log
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+! 
+! 
+! 
+! 
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-4272277210
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-4272277210
+ revocation-check none
+ rsakeypair TP-self-signed-4272277210
+!
+crypto pki trustpoint TP-self-signed-1530096085
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-1530096085
+ revocation-check none
+ rsakeypair TP-self-signed-1530096085
+!
+!
+crypto pki certificate chain TP-self-signed-4272277210
+ certificate self-signed 05
+  30820330 30820218 A0030201 02020105 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 34323732 32373732 3130301E 170D3230 30343233 31373533 
+  34345A17 0D333030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D34 32373232 
+  37373231 30308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 01009858 89579EA7 C4B95ED7 D6CD3A7A A9ADF9C1 9EF42C45 D788A4E2 
+  964CDE70 75E6B6CE 46F321C1 C8AD946B 1EE00F5E A5E37099 6044BE23 C1562BB9 
+  A4BDE926 6B09AEA4 F9F9B5C8 1D6AAE97 2889882D 88F9EC7F FC2810C3 20DDD4D0 
+  400C5DB4 81C22510 0A109315 657B62DE 5A560E76 D0EC83F7 844C6E55 71603C71 
+  5207BE5D 968AA0C1 C742F41D B133A70C 1DC0031D BDC9FD03 F299849B 6A072C55 
+  6A154E73 62F37851 07C311E5 69E58BBB 6116231E 62653585 6BDBED2F 5E6CF5DF 
+  5419C112 00BDE251 304932EE 6E3C9FA0 1AF4EB1A 9936A04C B416870D F2289C62 
+  8C0F8640 087C125E FB0EC183 D4A9A55A 25644578 D9F369DD B3A4B1E4 2771CB50 
+  6AE2A7CD B04D0203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 147097E9 48028F53 EAD70035 B8B8945D ADC0D62D 
+  72301D06 03551D0E 04160414 7097E948 028F53EA D70035B8 B8945DAD C0D62D72 
+  300D0609 2A864886 F70D0101 05050003 82010100 477ED247 592C640A B277BA35 
+  E41533CC 690BF5AD FAD87349 FE00E91F 46C139EA 94C010A3 ADA388E4 F69CF01F 
+  543C0D8A 4D7C6D9F 25F33D54 92B28C60 EEE9994F 4E4EAD83 90F4DE5E 18DE8E56 
+  4AC70923 AFB2F27B F23BD55D 778348D8 CEB18DFC 9FFAEA38 11E40810 84997370 
+  277F0DE7 BCD54FD5 05EDF462 FF34EC1C 96FFDED5 84F11106 CA8806F2 6DE79AC3 
+  5792D85D 89A8DD76 CF5BBB5E 85DD745C 8C0FF1EE 79076224 E5DB38E5 9E311D44 
+  89A9DD02 333649CD 7B8C6EA8 BD5DC60C 3B637ED8 32D7F733 B428F184 FC9951FF 
+  91FA2291 3B7EBD99 521348D1 2B9B9910 B65FAC0B 51E36145 DC0F65F0 D0159118 
+  4EFA8429 EB28DDAD 3F5F3F41 FB4495B4 EAA88C0B
+  	quit
+crypto pki certificate chain TP-self-signed-1530096085
+!
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9EJ6XRW79ZN
+license boot level ax
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+netconf-yang
+!
+restconf
+!
+username cisco privilege 15 secret 5 $1$aO1Y$0AFVz00ON.hE4WkY.BeYq.
+username developer privilege 15 secret 5 $1$HtLC$7Kj3hGBoDnSHzdEeR/2ix.
+username root privilege 15 secret 5 $1$vpY7$mh9d69ui3koSaITBi8k9D/
+!
+redundancy
+!
+!
+!
+!
+!
+!
+cdp run
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+!
+!
+interface Loopback0
+ no ip address
+!
+interface Loopback74
+ description Testing Golang RestConf
+ ip address 74.74.74.1 255.255.255.255
+!
+interface Loopback101
+ description Pod Number 1410
+ ip address 10.10.10.1 255.255.255.0
+!
+interface Loopback103
+ description Demo interface by CLI and netmiko
+ ip address 192.168.103.1 255.255.255.0
+!
+interface Loopback172
+ description Pod Number 72
+ ip address 10.111.72.2 255.255.255.255
+!
+interface Loopback300
+ description 300
+ ip address 30.40.50.60 255.255.255.0
+!
+interface Loopback777
+ description Configured by superstar
+ ip address 1.16.1.1 255.255.255.0
+!
+interface Loopback99999
+ description fffffff
+ ip address 9.9.9.9 255.255.255.255
+!
+interface VirtualPortGroup0
+ ip address 192.168.35.1 255.255.255.0
+ ip nat inside
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet1
+ description MANAGEMENT INTERFACE - DON'T TOUCH ME
+ ip address 10.10.20.48 255.255.255.0
+ ip nat outside
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet2
+ description Configured by Jag_NETCONF
+ ip address 10.255.255.1 255.255.255.0 secondary
+ ip address 10.255.254.1 255.255.255.0
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet3
+ description Network Interface
+ ip address 30.0.0.1 255.255.255.0
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet3.1
+ description testSerge
+ encapsulation dot1Q 101
+ ip address 101.0.1.1 255.255.255.0 secondary
+ ip address 101.0.2.1 255.255.255.0 secondary
+ ip address 101.0.0.1 255.255.255.0
+!
+router ospf 300
+ router-id 3.1.1.1
+ network 30.0.0.0 0.0.0.255 area 3
+!
+router ospf 100
+ router-id 1.1.1.1
+ network 10.0.0.0 0.0.0.255 area 0
+!
+router ospf 74
+ router-id 74.74.74.1
+ network 74.74.74.1 0.0.0.0 area 74
+!
+ip nat inside source list NAT_ACL interface GigabitEthernet1 overload
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+ip route 0.0.0.0 0.0.0.0 GigabitEthernet1 10.10.20.254
+!
+ip ssh rsa keypair-name ssh-key
+ip ssh version 2
+ip scp server enable
+!
+!
+ip access-list standard NAT_ACL
+ permit 192.168.0.0 0.0.255.255
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ stopbits 1
+line vty 0 4
+ login local
+ transport input ssh
+!
+!
+!
+!
+!
+!
+!
+end

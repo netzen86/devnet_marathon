@@ -1,0 +1,26 @@
+--- 
+
++++ 
+
+@@ -1,8 +1,8 @@
+
+ Building configuration...
+ 
+-Current configuration : 7077 bytes
+-!
+-! Last configuration change at 18:50:24 UTC Mon Apr 27 2020 by developer
++Current configuration : 7089 bytes
++!
++! Last configuration change at 19:02:56 UTC Mon Apr 27 2020 by developer
+ !
+ version 16.11
+ service timestamps debug datetime msec
+@@ -258,6 +258,7 @@
+
+  login local
+  transport input ssh
+ !
++netconf ssh
+ !
+ !
+ !

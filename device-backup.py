@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # """Module docstring."""
 
-#Imports
+# Imports
 from netmiko import ConnectHandler
 import csv
 import logging
@@ -12,25 +12,27 @@ import filecmp
 import sys
 import os
 
-#Module 'Global' variables
-DEVICE_FILE_PATH = 'devices.csv' # file should contain a list of devices in format: ip,username,password,device_type
-BACKUP_DIR_PATH = '/Users/otselova/PycharmProjects/backup_creator_v2/backups' # complete path to backup directory
+# Module 'Global' variables
+DEVICE_FILE_PATH = "devices.csv"  # file should contain a list of devices in format: ip,username,password,device_type
+BACKUP_DIR_PATH = "/home/netzen/Documents/Study/devnet/devnet_marathon/backups"  # complete path to backup directory
+
 
 def enable_logging():
     # This function enables netmiko logging for reference
 
-    logging.basicConfig(filename='test.log', level=logging.DEBUG)
+    logging.basicConfig(filename="test.log", level=logging.DEBUG)
     logger = logging.getLogger("netmiko")
+
 
 def get_devices_from_file(device_file):
     # This function takes a CSV file with inventory and creates a python list of dictionaries out of it
-    # Each disctionary contains information about a single device
+    # Each dictionary contains information about a single device
 
     # creating empty structures
     device_list = list()
     device = dict()
 
-    # reading a CSV file with ',' as a delimeter
+    # reading a CSV file with ',' as a delimiter
     with open(device_file, 'r') as f:
         reader = csv.DictReader(f, delimiter=',')
 
@@ -38,12 +40,13 @@ def get_devices_from_file(device_file):
         for row in reader:
             device_list.append(row)
 
-    print ("Got the device list from inventory")
+    print("Got the device list from inventory")
     print('-*-' * 10)
-    print ()
+    print()
 
     # returning a list of dictionaries
     return device_list
+
 
 def get_current_date_and_time():
     # This function returns the current date and time
@@ -57,33 +60,37 @@ def get_current_date_and_time():
     # Format: yyyy_mm_dd-hh_mm_ss
     return now.strftime("%Y_%m_%d-%H_%M_%S")
 
+
 def connect_to_device(device):
     # This function opens a connection to the device using Netmiko
     # Requires a device dictionary as an input
 
     # Since there is a 'hostname' key, this dictionary can't be used as is
     connection = ConnectHandler(
-        host = device['ip'],
-        username = device['username'],
-        password=device['password'],
-        device_type=device['device_type'],
-        secret=device['secret']
+        host=device["ip"],
+        port=device["port"],
+        username=device["username"],
+        password=device["password"],
+        device_type=device["device_type"],
+        secret=device["secret"]
     )
 
-    print ('Opened connection to '+device['ip'])
+    print('Opened connection to ' + device['ip'])
     print('-*-' * 10)
     print()
 
     # returns a "connection" object
     return connection
 
+
 def disconnect_from_device(connection, hostname):
-    #This function terminates the connection to the device
+    # This function terminates the connection to the device
 
     connection.disconnect()
-    print ('Connection to device {} terminated'.format(hostname))
+    print('Connection to device {} terminated'.format(hostname))
 
-def get_backup_file_path(hostname,timestamp):
+
+def get_backup_file_path(hostname, timestamp):
     # This function creates a backup file name (a string)
     # backup file path structure is hostname/hostname-yyyy_mm_dd-hh_mm
 
@@ -93,12 +100,13 @@ def get_backup_file_path(hostname,timestamp):
 
     # Merging a string to form a full backup file name
     backup_file_path = os.path.join(BACKUP_DIR_PATH, hostname, '{}-{}.txt'.format(hostname, timestamp))
-    print('Backup file path will be '+backup_file_path)
+    print('Backup file path will be ' + backup_file_path)
     print('-*-' * 10)
     print()
 
     # returning backup file path
     return backup_file_path
+
 
 def create_backup(connection, backup_file_path, hostname):
     # This function pulls running configuration from a device and writes it to the backup file
@@ -140,9 +148,9 @@ def get_previous_backup_file_path(hostname, curent_backup_file_path):
 
         # select files with correct extension and names
         if file_name.endswith('.txt') and file_name != current_backup_filename:
-
             # getting backup date and time from filename
-            filename_datetime = datetime.datetime.strptime(file_name.strip('.txt')[len(hostname)+1:],'%Y_%m_%d-%H_%M_%S')
+            filename_datetime = datetime.datetime.strptime(file_name.strip('.txt')[len(hostname) + 1:],
+                                                           '%Y_%m_%d-%H_%M_%S')
 
             # adding backup files to dict with key equal to datetime in unix format
             backup_files[filename_datetime.strftime('%s')] = file_name
@@ -180,12 +188,13 @@ def compare_backup_with_previous_config(previous_backup_file_path, backup_file_p
         print()
 
         # if they do differ, open files in read mode and open changelog in write mode
-        with open(previous_backup_file_path,'r') as f1, open(backup_file_path,'r') as f2, open(changes_file_path,'w') as f3:
+        with open(previous_backup_file_path, 'r') as f1, open(backup_file_path, 'r') as f2, open(changes_file_path,
+                                                                                                 'w') as f3:
             # looking for delta
-            delta = difflib.unified_diff(f1.read().splitlines(),f2.read().splitlines())
+            delta = difflib.unified_diff(f1.read().splitlines(), f2.read().splitlines())
             # writing discovered delta to the changelog file
             f3.write('\n'.join(delta))
-        print ('\tConfig state: changed')
+        print('\tConfig state: changed')
         print('-*-' * 10)
         print()
 
@@ -194,7 +203,8 @@ def compare_backup_with_previous_config(previous_backup_file_path, backup_file_p
         print('-*-' * 10)
         print()
 
-def process_target(device,timestamp):
+
+def process_target(device, timestamp):
     # This function will be run by each of the processes in parallel
     # This function implements a logic for a single device using other functions defined above:
     #  - connects to the device,
@@ -205,10 +215,10 @@ def process_target(device,timestamp):
     # Requires connection object and a timestamp string as an input
 
     connection = connect_to_device(device)
-    
+
     backup_file_path = get_backup_file_path(device['hostname'], timestamp)
     backup_result = create_backup(connection, backup_file_path, device['hostname'])
-    
+
     disconnect_from_device(connection, device['hostname'])
 
     # if the script managed to create a backup, then look for a previous one
@@ -223,6 +233,7 @@ def process_target(device,timestamp):
             print('-*-' * 10)
             print()
 
+
 def main(*args):
     # This is a main function
 
@@ -236,13 +247,13 @@ def main(*args):
     device_list = get_devices_from_file(DEVICE_FILE_PATH)
 
     # creating a empty list
-    processes=list()
+    processes = list()
 
     # Running workers to manage connections
     with mp.Pool(4) as pool:
         # Starting several processes...
         for device in device_list:
-            processes.append(pool.apply_async(process_target, args=(device,timestamp)))
+            processes.append(pool.apply_async(process_target, args=(device, timestamp)))
         # Waiting for results...
         for process in processes:
             process.get()
@@ -251,13 +262,6 @@ def main(*args):
 if __name__ == '__main__':
     # checking if we run independently
     _, *script_args = sys.argv
-    
+
     # the execution starts here
     main(*script_args)
-
-
-
-
-
-
-
