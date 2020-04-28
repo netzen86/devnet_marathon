@@ -31,7 +31,7 @@ def get_devices_from_file(device_file):
 
     # creating empty structures
     device_list = list()
-    device = dict()
+    #device = dict()
 
     # reading a CSV file with ',' as a delimiter
     with open(device_file, 'r') as f:
@@ -68,12 +68,12 @@ def connect_to_device(device):
     try:
         # Since there is a 'hostname' key, this dictionary can't be used as is
         connection = ConnectHandler(
-                    host=device["ip"],
-                    port=device["port"],
-                    username=device["username"],
-                    password=device["password"],
-                    device_type=device["device_type"],
-                    secret=device["secret"])
+            host=device["ip"],
+            port=device["port"],
+            username=device["username"],
+            password=device["password"],
+            device_type=device["device_type"],
+            secret=device["secret"])
 
         print('Opened connection to ' + device['ip'])
         print('-*-' * 10)
@@ -204,6 +204,7 @@ def compare_backup_with_previous_config(previous_backup_file_path, backup_file_p
         print('-*-' * 10)
         print()
 
+
 # HOME WORK
 def devicestatus(connection):
     # Create a CLI command template
@@ -212,7 +213,7 @@ def devicestatus(connection):
     show_cdp = "show cdp neighbors"
     show_ntp = "show ntp status"
     test_ntp = "ping 192.168.1.1"
-    conf_ntp = "ntp server 192.168.1.1"
+    conf_ntp = "ntp server 192.168.1.1 prefer"
 
     # Create desired CLI command and send to device
     version = connection.send_command(show_ver_config_temp)
@@ -227,16 +228,19 @@ def devicestatus(connection):
             confntp = connection.send_config_set(conf_ntp)
             #print(confntp)
             ntpstatus = connection.send_command(show_ntp)
-            ntp = re.search(r'Clock is\s([a-z]+),', ntpstatus).group(1)
+            ntp = "Clock setup complete."
         else:
             ntp = "NTP server not reachable"
     else:
-        ntp = re.search(r'Clock is\s([a-z]+),', ntpstatus).group(1)
+        if re.search(r'Clock is\s([a-z]+),', ntpstatus).group(1) == "unsynchronized":
+            ntp = "Clock not Sync"
+        else:
+            ntp = "Clock in Sync"
 
     try:
         # Use regular expressions to parse the output for desired data
         imagename = re.search(r'Cisco IOS.+\(([A-Z0-9_-]*)\)', version).group(1)
-        imagever = re.search(r'Version\s([A-Za-z0-9\._-]*)', version).group(1)
+        imagever = re.search(r'Version\s([A-Za-z0-9._-]*)', version).group(1)
         hostname = re.search(r'(.+)\suptime\sis', version).group(1)
         modelname = re.search(r'\(PID\)\s:\s([A-Z0-9]+)', diag).group(1)
 
@@ -259,7 +263,6 @@ def devicestatus(connection):
         print('-*- Home work -*-' * 10)
     except Exception:
         print("Regexp not work.")
-
 
 
 def process_target(device, timestamp):
@@ -296,7 +299,7 @@ def main(*args):
     # This is a main function
 
     # Enable logs
-    #enable_logging()
+    # enable_logging()
 
     # getting the timestamp string
     timestamp = get_current_date_and_time()
