@@ -177,7 +177,7 @@ def compare_backup_with_previous_config(previous_backup_file_path, backup_file_p
     # Requires a path to last backup file and a path to the previous backup file as an input
 
     # creating a name for changelog file
-    changes_file_path = backup_file_path.strip('.txt') + '.changes'
+    changes_file_path = backup_file_path + '.changes'
 
     # checking if files differ from each other
     if not filecmp.cmp(previous_backup_file_path, backup_file_path):
