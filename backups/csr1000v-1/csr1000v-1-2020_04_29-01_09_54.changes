@@ -1,0 +1,45 @@
+--- 
+
++++ 
+
+@@ -1,8 +1,8 @@
+
+ Building configuration...
+ 
+-Current configuration : 6873 bytes
+-!
+-! Last configuration change at 18:40:29 GMT Tue Apr 28 2020 by developer
++Current configuration : 6826 bytes
++!
++! Last configuration change at 20:05:25 UTC Tue Apr 28 2020 by developer
+ !
+ version 16.11
+ service timestamps debug datetime msec
+@@ -22,7 +22,6 @@
+
+ enable secret 9 $9$PvdeTeuxxh0ygk$PSg0GTG2I7bluI51e.IvfEu2uxy56e/9/PgqzFUklso
+ !
+ no aaa new-model
+-clock timezone GMT 0 0
+ call-home
+  ! If contact email address in call-home is configured as sch-smart-licensing@cisco.com
+  ! the email address configured in Cisco Smart License Portal will be used as contact email address to send SCH notifications.
+@@ -141,7 +140,7 @@
+
+   D697DF7F 28
+   	quit
+ !
+-license udi pid CSR1000V sn 9F667SO2YW8
++license udi pid CSR1000V sn 9OD87GUQNAF
+ license boot level ax
+ diagnostic bootup level minimal
+ !
+@@ -243,7 +242,6 @@
+
+  login local
+  transport input ssh
+ !
+-ntp server ntp.pool.org
+ !
+ !
+ !

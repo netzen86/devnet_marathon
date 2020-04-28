@@ -1,0 +1,26 @@
+--- 
+
++++ 
+
+@@ -1,8 +1,8 @@
+
+ Building configuration...
+ 
+-Current configuration : 4393 bytes
+-!
+-! Last configuration change at 18:42:04 GMT Tue Apr 28 2020 by developer
++Current configuration : 4418 bytes
++!
++! Last configuration change at 20:00:17 GMT Tue Apr 28 2020 by root
+ !
+ version 16.9
+ service timestamps debug datetime msec
+@@ -198,6 +198,7 @@
+
+  login local
+  transport input ssh
+ !
++ntp server 192.168.1.1 prefer
+ !
+ !
+ !

@@ -1,0 +1,31 @@
+--- 
+
++++ 
+
+@@ -1,8 +1,8 @@
+
+ Building configuration...
+ 
+-Current configuration : 6826 bytes
+-!
+-! Last configuration change at 20:40:32 UTC Tue Apr 28 2020 by developer
++Current configuration : 6901 bytes
++!
++! Last configuration change at 20:46:32 UTC Tue Apr 28 2020 by developer
+ !
+ version 16.11
+ service timestamps debug datetime msec
+@@ -180,6 +180,12 @@
+
+ ! 
+ !
+ !
++interface Loopback1
++ no ip address
++!
++interface Loopback99
++ no ip address
++!
+ interface GigabitEthernet1
+  description MANAGEMENT INTERFACE - DON'T TOUCH ME
+  ip address 10.10.20.48 255.255.255.0

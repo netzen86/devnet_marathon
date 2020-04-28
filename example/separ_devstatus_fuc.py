@@ -4,7 +4,7 @@
 from netmiko import ConnectHandler
 import re
 
-from device_info import ios_xe1 as device  # noqa
+from example.device_info import ios_xe1 as device  # noqa
 
 
 # Create a CLI command template

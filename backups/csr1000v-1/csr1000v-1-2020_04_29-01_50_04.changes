@@ -1,0 +1,37 @@
+--- 
+
++++ 
+
+@@ -1,8 +1,8 @@
+
+ Building configuration...
+ 
+-Current configuration : 6901 bytes
+-!
+-! Last configuration change at 20:46:32 UTC Tue Apr 28 2020 by developer
++Current configuration : 6962 bytes
++!
++! Last configuration change at 20:48:27 UTC Tue Apr 28 2020 by developer
+ !
+ version 16.11
+ service timestamps debug datetime msec
+@@ -183,6 +183,9 @@
+
+ interface Loopback1
+  no ip address
+ !
++interface Loopback19
++ no ip address
++!
+ interface Loopback99
+  no ip address
+ !
+@@ -248,6 +251,7 @@
+
+  login local
+  transport input ssh
+ !
++ntp server 192.168.1.1
+ !
+ !
+ !

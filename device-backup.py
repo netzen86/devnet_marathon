@@ -15,7 +15,7 @@ import re
 
 # Module 'Global' variables
 DEVICE_FILE_PATH = "devices.csv"  # file should contain a list of devices in format: ip,username,password,device_type
-BACKUP_DIR_PATH = "/home/netzen/Documents/Study/devnet/devnet_marathon/backups"  # complete path to backup directory
+BACKUP_DIR_PATH = "/backups"  # complete path to backup directory
 
 
 def enable_logging():
