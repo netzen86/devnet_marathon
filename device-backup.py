@@ -64,21 +64,21 @@ def get_current_date_and_time():
 def connect_to_device(device):
     # This function opens a connection to the device using Netmiko
     # Requires a device dictionary as an input
+    try:
+        # Since there is a 'hostname' key, this dictionary can't be used as is
+        connection = ConnectHandler(
+                    host=device["ip"],
+                    port=device["port"],
+                    username=device["username"],
+                    password=device["password"],
+                    device_type=device["device_type"],
+                    secret=device["secret"])
 
-    # Since there is a 'hostname' key, this dictionary can't be used as is
-    connection = ConnectHandler(
-        host=device["ip"],
-        port=device["port"],
-        username=device["username"],
-        password=device["password"],
-        device_type=device["device_type"],
-        secret=device["secret"]
-    )
-
-    print('Opened connection to ' + device['ip'])
-    print('-*-' * 10)
-    print()
-
+        print('Opened connection to ' + device['ip'])
+        print('-*-' * 10)
+        print()
+    except Exception:
+        print(f"{device} not reachable")
     # returns a "connection" object
     return connection
 
@@ -140,7 +140,7 @@ def get_previous_backup_file_path(hostname, curent_backup_file_path):
     # removing the full path
     current_backup_filename = curent_backup_file_path.split('/')[-1]
 
-    # creatting an empty dictionary to keep backup file names
+    # creating an empty dictionary to keep backup file names
     backup_files = {}
 
     # looking for previous backup files
@@ -229,7 +229,7 @@ def process_target(device, timestamp):
         if previous_backup_file_path:
             compare_backup_with_previous_config(previous_backup_file_path, backup_file_path)
         else:
-            print('Unable to find previos backup file to find changes.')
+            print('Unable to find previous backup file to find changes.')
             print('-*-' * 10)
             print()
 
@@ -238,7 +238,7 @@ def main(*args):
     # This is a main function
 
     # Enable logs
-    enable_logging()
+    #enable_logging()
 
     # getting the timestamp string
     timestamp = get_current_date_and_time()
