@@ -191,3 +191,26 @@ ntp server 192.168.1.1 prefer
 no ntp server 192.168.1.1 prefer
 no ntp server 132.163.96.5
 no ntp server pool.ntp.org
+
+
+
+
+Core#ping 10.242.3.18
+
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.242.3.18, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/2/4 ms
+
+Core#show arp | include 10.242.3.18
+Internet  10.242.3.18             9   0001.6c4d.c0f7  ARPA   Vlan3
+
+
+Please find the example which you have requested.
+==================================================
+
+Core#traceroute mac 0001.6c4d.c0f7 0001.6c4d.c0f7 vlan 3
+Source 0001.6c4d.c0f7 found on Accessswitch
+
+Accessswitch(10.242.0.6) : Fa3/58 => Fa3/58
+Destination 0001.6c4d.c0f7 found on Accessswitch
