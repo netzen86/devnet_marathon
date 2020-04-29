@@ -177,7 +177,7 @@ def compare_backup_with_previous_config(previous_backup_file_path, backup_file_p
     # Requires a path to last backup file and a path to the previous backup file as an input
 
     # creating a name for changelog file
-    changes_file_path = backup_file_path + '.changes'
+    changes_file_path = backup_file_path.strip("txt") + 'changes'
 
     # checking if files differ from each other
     if not filecmp.cmp(previous_backup_file_path, backup_file_path):
@@ -214,6 +214,7 @@ def devicestatus(connection):
     show_ntp = "show ntp status"
     test_ntp = "ping 192.168.1.1"
     conf_ntp = "ntp server 192.168.1.1 prefer"
+    conf_timezon = "timezone GMT +0"
 
     # Create desired CLI command and send to device
     version = connection.send_command(show_ver_config_temp)
@@ -224,10 +225,12 @@ def devicestatus(connection):
     # Check NTP status, or configure NTP server
     if "%NTP is not enabled." in ntpstatus:
         ntptest = re.search(r'Success rate is ([0-9]+) percent', connection.send_command(test_ntp)).group(1)
-        if "0" in ntptest:
+        if int(ntptest) != 0:
             confntp = connection.send_config_set(conf_ntp)
-            #print(confntp)
-            ntpstatus = connection.send_command(show_ntp)
+            conftz = connection.send_config_set(conf_timezon)
+            #print(confntp) #DEBUG
+            print(conftz) #DEBUG
+            #ntpstatus = connection.send_command(show_ntp)
             ntp = "Clock setup complete."
         else:
             ntp = "NTP server not reachable"
@@ -258,9 +261,9 @@ def devicestatus(connection):
 
         # Print the info to the screen
         # ms-gw-01|ISR4451/K9|BLD_V154_3_S_XE313_THROTTLE_LATEST |PE |CDP is ON,5 peers|Clock in Sync
-        print('-*- Home work -*-' * 10)
+        print('-*- Home work -*-' * 5 + "\n")
         print(f"\n{hostname}|{modelname}|{imagever}|{npeimage}|{cdp}, {cdppeers} peers|{ntp}\n")
-        print('-*- Home work -*-' * 10)
+        print('-*- Home work -*-' * 5 + "\n")
     except Exception:
         print("Regexp not work.")
 
