@@ -15,7 +15,7 @@ import re
 
 # Module 'Global' variables
 DEVICE_FILE_PATH = "devices.csv"  # file should contain a list of devices in format: ip,username,password,device_type
-BACKUP_DIR_PATH = "./backups"  # complete path to backup directory
+BACKUP_DIR_PATH = "backups"  # complete path to backup directory
 
 
 def enable_logging():
@@ -282,7 +282,7 @@ def process_target(device, timestamp):
 
     backup_file_path = get_backup_file_path(device['hostname'], timestamp)
     backup_result = create_backup(connection, backup_file_path, device['hostname'])
-    devicestatus(connection)
+    prndevstat = devicestatus(connection)
     disconnect_from_device(connection, device['hostname'])
 
     # if the script managed to create a backup, then look for a previous one
@@ -312,6 +312,8 @@ def main(*args):
 
     # creating a empty list
     processes = list()
+
+    prndevstat = ""
 
     # Running workers to manage connections
     with mp.Pool(4) as pool:
