@@ -209,8 +209,25 @@ Internet  10.242.3.18             9   0001.6c4d.c0f7  ARPA   Vlan3
 Please find the example which you have requested.
 ==================================================
 
+
+
 Core#traceroute mac 0001.6c4d.c0f7 0001.6c4d.c0f7 vlan 3
 Source 0001.6c4d.c0f7 found on Accessswitch
 
 Accessswitch(10.242.0.6) : Fa3/58 => Fa3/58
 Destination 0001.6c4d.c0f7 found on Accessswitch
+
+
+Ciscozine-SW1#traceroute mac 0019.9955.0f60 00a0.6011.aa0b
+Source 0019.9955.0f60 found on Ciscozine-SW1
+1 Ciscozine-SW1 (192.168.0.253) : Fa0/21 => Fa0/1
+2 Ciscozine-SW2 (192.168.0.254) : Fa0/1 => Fa0/27
+Destination 00a0.6011.aa0b found on Ciscozine-SW2
+Layer 2 trace completed
+Ciscozine-SW1#
+
+Ciscozine-SW2\s.+=>\s([0-9FaGiTe/]+)
+
+Destination\s[a-f0-9.]+\sfound on\s([\w-_]+)
+
+namesw = re.search(r'Destination\s[a-f0-9.]+\sfound on\s([\w-_]+)', test).group(1)
