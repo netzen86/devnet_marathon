@@ -1,3 +1,14 @@
+День 2
+Домашнее задание находиться в катологе Day2 find_mac.py
+
+Адрес коммутатора и креды указываются в файле defaults.yaml
+
+MAC адрес для поиска указвать в команде traceroute mac в файле find_mac.py 
+
+
+
+
+День 1
 Домашнее задание реализовано в виде функкции devicestatus в файле device-backup.py
 
 Испытания скрипта проводил на ios-xe-mgmt-latest.cisco.com и ios-xe-mgmt.cisco.com (всегда доступны)
