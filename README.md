@@ -6,8 +6,9 @@
 
 
 
--*- Home work -*--*- Home work -*--*- Home work -*--*- Home work -*--*- Home work -*--*- Home work -*--*- Home work -*--*- Home work -*--*- Home work -*--*- Home work -*-
+-*- Home work -*--*- Home work -*--*- Home work -*--*- Home work -*--*- Home work -*-
 
-csr1000v-1|CSR1000V|16.11.01a|PE|CDP is ON, 0 peers|unsynchronized
 
--*- Home work -*--*- Home work -*--*- Home work -*--*- Home work -*--*- Home work -*--*- Home work -*--*- Home work -*--*- Home work -*--*- Home work -*--*- Home work -*-
+csr1000v|CSR1000V|16.09.03|PE|CDP is OFF, 0 peers|Clock in Sync
+
+-*- Home work -*--*- Home work -*--*- Home work -*--*- Home work -*--*- Home work -*-
