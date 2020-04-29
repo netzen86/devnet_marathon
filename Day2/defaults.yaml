@@ -1,0 +1,12 @@
+---
+platform: cisco_ios
+username: developer
+password: C1sco12345
+connection_options:
+  netmiko:
+    platform: cisco_ios
+    port: 8181
+    extras:
+      #transport: ssh2
+      ssh_config_file: False
+      #auth_strict_key: False
